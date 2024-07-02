@@ -24,12 +24,14 @@ class CoindeskSpider(scrapy.Spider):
             title = node.xpath(
                 './/h6[contains(@class, "typography__StyledTypography-sc-owin6q-0")]/text()'
             ).get()
-            print(title)
+            #print(title)
 
             link = node.xpath('.//a[contains(@class, "card-title-link")]/@href').get()
-            print(link)
+            #print(link)
 
+            date = node.xpath('.//span[contains(@class, "typography__StyledTypography-sc-owin6q-0 iOUkmj")]/text()').get()
             yield {
                 "title": title.strip(),  # 使用strip()去除可能的多余空格
                 "link": response.urljoin(link),  # 确保链接是绝对的
+                "date": date.strip()
             }
